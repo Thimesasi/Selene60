@@ -1,0 +1,71 @@
+units:
+  # Proxy Spacing Variables
+  kx: u
+  ky: u
+  # Padding Variables
+  px: kx + 2
+  py: ky + 2
+
+points:
+  zones:
+    matrix:
+      columns:
+        C1:
+          rows.R1.skip: true
+        C2:
+          rows.R1.shift: [0.5kx,0]
+          rows.R2.shift: [-0.5kx,0]
+        C3:
+          rows.R1.shift: [0.5kx,0]
+          rows.R2.shift: [-0.5kx,0]
+        C4:
+          rows.R1.shift: [0.5kx,0]
+          rows.R2.shift: [-0.5kx,0]
+        C5:
+          rows.R1.skip: true
+        C6:
+          rows.R1.width: 2kx
+        C8:
+          rows.R1.shift: [0.5kx,0]
+          rows.R2.shift: [-0.5kx,0]
+        C7:
+          rows.R1.skip: true
+        C9:
+          rows.R1.width: 1.75kx
+          rows.R1.shift: [-0.125kx,0]
+          rows.R2.shift: [0.125kx,0]
+        C10:
+          rows.R1.skip: true
+        C11:
+          rows.R1.width: 1.25kx
+          rows.R1.shift: [-0.625kx,0]
+          rows.R2.shift: [0.625kx,0]
+        C12:
+          rows.R1.shift: [-0.5kx,0]
+          rows.R2.shift: [0.5kx,0]
+        C13:
+          rows.R1.shift: [-0.5kx,0]
+          rows.R2.shift: [0.5kx,0]
+        C14:
+          rows.R1.shift: [-0.5kx,0]
+          rows.R2.shift: [0.5kx,0]
+          rows.R4.skip: true
+        C15:
+          #backspace
+          rows.R1.skip: true
+          rows.R4.width: 2kx
+          rows.R4.shift: [-0.5kx,0]
+          rows.R5.shift: [0.5kx,0]
+
+          #Enter
+          rows.R3.skip: true
+          rows.R2.height: 2ky
+          rows.R2.shift: [0, 0.5ky]
+          rows.R3.shift: [0, -0.5ky]
+          
+      rows:
+        R1:
+        R2:
+        R3:
+        R4:
+        R5:
