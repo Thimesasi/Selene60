@@ -34,10 +34,10 @@ points:
           rows.R1.skip: true
         C6:
           rows.R1.width: 2kx
-        C8:
+        C7:
           rows.R1.shift: [0.5kx,0]
           rows.R2.shift: [-0.5kx,0]
-        C7:
+        C8:
           rows.R1.skip: true
         C9:
           rows.R1.width: 1.75kx
@@ -79,19 +79,43 @@ points:
         R4:
         R5:
 outlines:
+  stab_hole:
+    big:
+      what: circle
+      radius: 4/2
+      adjust:
+        shift: [0,-8.24]
+    small:
+      what: circle
+      radius: 3.05/2
+      operation: add
+      adjust:
+        shift: [0, 7]
+  2u_stab_hole:
+    left:
+      what: outline
+      name: stab_hole
+      adjust:
+        shift: [-23.8/2,0] 
+    right:
+      what: outline
+      name: stab_hole
+      adjust:
+        shift: [23.8/2,0]  
+      operation: add   
   2u_stabilizer:
     backspaceTop_L:
       what: rectangle
       where: matrix_C15_R4
       size: [stabilizer_width, stabilizer_height]
       adjust:
-        shift: [stabilizer_spacing_2u, stabilizer_offset]
+        shift: [stabilizer_spacing_2u, -stabilizer_offset]
     backspaceTop_R:
       what: rectangle
       where: matrix_C15_R4
       size: [stabilizer_width, stabilizer_height]
       adjust:
-        shift: [-stabilizer_spacing_2u, stabilizer_offset]
+        shift: [-stabilizer_spacing_2u, -stabilizer_offset]
     backspaceBot_L:
       what: rectangle
       where: matrix_C6_R1
@@ -163,25 +187,40 @@ outlines:
       what: outline
       name: 2u_stabilizer
       operation: subtract
+  board:
+    main:
+      what: outline
+      name: border
+    stabs1:
+      what: outline
+      name: 2u_stab_hole
+      where: /^matrix_(?:C6_R1)/
+      operation: subtract  
+    stabs2:
+      what: outline
+      name: 2u_stab_hole
+      where: /^matrix_(?:C15_R2)/
+      operation: subtract
+      adjust:
+        rotate: -90  
   preview:
     main:
       what: outline
       name: keys
     layer:
       what: outline
-      name: border
-      operation: stack
-
+      name: board
+      operation: stack   
 pcbs:
   selene:
     template: kicad8
     outlines:
       main:
-        outline: border
+        outline: board
     footprints:
       mx_hotswap_main:
         what: mx
-        where: /^matrix_(?!(?:C7_R2|C7_R3|C8_R2|C8_R3))/
+        where: /^matrix_(?!(?:C7_R1))/
         params:
           from: "{{colrow}}"
           to: "{{column_net}}"
@@ -190,7 +229,7 @@ pcbs:
       # Rotate switch socket so it does't conflict with controller    
       mx_hotswap_conflict:
         what: mx
-        where: /^matrix_(?:C7_R2|C7_R3|C8_R2|C8_R3)/
+        where: /^matrix_(?:C7_R1)/
         params:
           from: "{{colrow}}"
           to: "{{column_net}}"
@@ -200,7 +239,7 @@ pcbs:
             rotate: 90     
       diode:
         what: diode
-        where: /^matrix_(?!(?:C7_R2|C7_R3|C8_R2|C8_R3))/
+        where: /^matrix_(?!(?:C7_R1|C9_R1))/
         adjust:
           rotate: 0
           shift: [ 0, -5 ]
@@ -210,19 +249,19 @@ pcbs:
       # Rotate diode so it does't conflict with controller
       diode_conflict1:
         what: diode
-        where: /^matrix_(?:C7_R2|C7_R3)/
+        where: /^matrix_(?:C7_R1)/
         adjust:
-          rotate: 90
-          shift: [8, 0 ]
+          rotate: 180
+          shift: [3, 10]
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"
       diode_conflict2:
         what: diode
-        where: /^matrix_(?:C8_R2|C8_R3)/
+        where: /^matrix_(?:C9_R1)/
         adjust:
-          rotate: 90
-          shift: [4, 0 ]
+          rotate: 0
+          shift: [0, -9]
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"    
@@ -232,6 +271,6 @@ pcbs:
         params:
           orientation: up
         where:
-          ref.aggregate.parts: [matrix_C8_R3, matrix_C9_R3]
-          shift: [-3.25, -ky/2-1.25]
-          rotate: -90
+          ref: matrix_C9_R1
+          shift: [2, 2]
+          rotate: 0
