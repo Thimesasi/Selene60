@@ -1,7 +1,7 @@
 units:
   # Proxy Spacing Variables
-  kx: u
-  ky: u
+  kx: U
+  ky: U
   # Padding Variables
   px: kx + 2
   py: ky + 2
@@ -70,7 +70,7 @@ points:
         R4:
         R5:
 
-outline:
+outlines:
   keys:
     main: 
       what: rectangle
@@ -115,4 +115,33 @@ outline:
       operation: stack
 
 pcbs:
-  footprints:
+  selene:
+    outlines:
+      main:
+        outline: border
+    footprints:
+      mx-hotswap:
+        what: mx
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{column_net}}"
+          keycaps: true
+          hotswap: true
+      diode:
+        what: diode
+        where: true
+        adjust:
+          rotate: 0
+          shift: [ 0, -10 ]
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+      nicenano:
+        what: nice_nano
+        params:
+          orientation: "down"
+        where:
+          ref.aggregate.parts: [matrix_C8_R3]
+          shift: [0,0]
+          rotate: -90
