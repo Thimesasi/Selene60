@@ -70,13 +70,13 @@ points:
         R4:
         R5:
 
-outlines:
+outline:
   keys:
     main: 
       what: rectangle
       where: true
       size: [kx-1, ky-1]
-  raw:
+  border:
     main: 
       what: rectangle
       where: true
@@ -105,3 +105,14 @@ outlines:
       where: matrix_C15_R4
       size: [2px - (px - kx), py]
       operation: add  
+  preview:
+    main:
+      what: outline
+      name: keys
+    layer:
+      what: outline
+      name: border
+      operation: stack
+
+pcbs:
+  footprints:
