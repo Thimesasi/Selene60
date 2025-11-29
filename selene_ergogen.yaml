@@ -6,9 +6,18 @@ units:
   px: kx + 2
   py: ky + 2
 
+# Stabalizer cutout
+  u: U # Ensure we are using 19.05!
+  stabilizer_width: 7
+  stabilizer_height: 14
+  stabilizer_offset: -1 # This means south stabs, use `orient` to rotate them for north facing scenarios
+  stabilizer_spacing_2u: u / 2 + stabilizer_width / 2 + ((23.8 / 2) - (14 / 2) - (stabilizer_width / 2)) # The complex formula has two magic numbers. 14 is the size of a switch cutout for a plate. 23.8 is the distance between each stabilizer on a 2-2.75u stabilizer, as specified by Cherry
+
 points:
   zones:
     matrix:
+      anchor:
+        shift: [75, -175]
       columns:
         C1:
           rows.R1.skip: true
@@ -69,8 +78,44 @@ points:
         R3:
         R4:
         R5:
-
 outlines:
+  2u_stabilizer:
+    backspaceTop_L:
+      what: rectangle
+      where: matrix_C15_R4
+      size: [stabilizer_width, stabilizer_height]
+      adjust:
+        shift: [stabilizer_spacing_2u, stabilizer_offset]
+    backspaceTop_R:
+      what: rectangle
+      where: matrix_C15_R4
+      size: [stabilizer_width, stabilizer_height]
+      adjust:
+        shift: [-stabilizer_spacing_2u, stabilizer_offset]
+    backspaceBot_L:
+      what: rectangle
+      where: matrix_C6_R1
+      size: [stabilizer_width, stabilizer_height]
+      adjust:
+        shift: [stabilizer_spacing_2u, stabilizer_offset]
+    backspaceBot_R:
+      what: rectangle
+      where: matrix_C6_R1
+      size: [stabilizer_width, stabilizer_height]
+      adjust:
+        shift: [-stabilizer_spacing_2u, stabilizer_offset]
+    enter_T:
+      what: rectangle
+      where: matrix_C15_R2
+      size: [stabilizer_height, stabilizer_width]
+      adjust:
+        shift: [stabilizer_offset, -stabilizer_spacing_2u]     
+    enter_B:
+      what: rectangle
+      where: matrix_C15_R2
+      size: [stabilizer_height, stabilizer_width]
+      adjust:
+        shift: [stabilizer_offset, stabilizer_spacing_2u]             
   keys:
     main: 
       what: rectangle
@@ -104,7 +149,20 @@ outlines:
       what: rectangle
       where: matrix_C15_R4
       size: [2px - (px - kx), py]
-      operation: add  
+      operation: add
+  plate:
+    main:
+      what: outline
+      name: border
+    keys:
+      what: rectangle
+      where: /^matrix_.*/
+      size: [14, 14]
+      operation: subtract
+    stabs:
+      what: outline
+      name: 2u_stabilizer
+      operation: subtract
   preview:
     main:
       what: outline
@@ -116,32 +174,44 @@ outlines:
 
 pcbs:
   selene:
+    template: kicad8
     outlines:
       main:
         outline: border
     footprints:
-      mx-hotswap:
+      mx_hotswap_main:
         what: mx
-        where: true
+        where: /^matrix_(?!(?:C9_R2|C9_R3)).*/
         params:
           from: "{{colrow}}"
           to: "{{column_net}}"
           keycaps: true
           hotswap: true
+      # Rotate switch socket so it does't conflict with controller    
+      mx_hotswap_conflict:
+        what: mx
+        where: /^matrix_(?:C9_R2|C9_R3).*/
+        params:
+          from: "{{colrow}}"
+          to: "{{column_net}}"
+          keycaps: true
+          hotswap: true 
+        adjust:
+            rotate: 90     
       diode:
         what: diode
         where: true
         adjust:
           rotate: 0
-          shift: [ 0, -10 ]
+          shift: [ 0, -5 ]
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"
       nicenano:
         what: nice_nano
         params:
-          orientation: "down"
+          orientation: up
         where:
-          ref.aggregate.parts: [matrix_C8_R3]
-          shift: [0,0]
+          ref.aggregate.parts: [matrix_C8_R3, matrix_C9_R3]
+          shift: [0,-ky/2]
           rotate: -90
