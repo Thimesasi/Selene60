@@ -181,7 +181,7 @@ pcbs:
     footprints:
       mx_hotswap_main:
         what: mx
-        where: /^matrix_(?!(?:C9_R2|C9_R3)).*/
+        where: /^matrix_(?!(?:C7_R2|C7_R3|C8_R2|C8_R3))/
         params:
           from: "{{colrow}}"
           to: "{{column_net}}"
@@ -190,7 +190,7 @@ pcbs:
       # Rotate switch socket so it does't conflict with controller    
       mx_hotswap_conflict:
         what: mx
-        where: /^matrix_(?:C9_R2|C9_R3).*/
+        where: /^matrix_(?:C7_R2|C7_R3|C8_R2|C8_R3)/
         params:
           from: "{{colrow}}"
           to: "{{column_net}}"
@@ -200,18 +200,38 @@ pcbs:
             rotate: 90     
       diode:
         what: diode
-        where: true
+        where: /^matrix_(?!(?:C7_R2|C7_R3|C8_R2|C8_R3))/
         adjust:
           rotate: 0
           shift: [ 0, -5 ]
         params:
           from: "{{colrow}}"
           to: "{{row_net}}"
+      # Rotate diode so it does't conflict with controller
+      diode_conflict1:
+        what: diode
+        where: /^matrix_(?:C7_R2|C7_R3)/
+        adjust:
+          rotate: 90
+          shift: [8, 0 ]
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+      diode_conflict2:
+        what: diode
+        where: /^matrix_(?:C8_R2|C8_R3)/
+        adjust:
+          rotate: 90
+          shift: [4, 0 ]
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"    
+
       nicenano:
         what: nice_nano
         params:
           orientation: up
         where:
           ref.aggregate.parts: [matrix_C8_R3, matrix_C9_R3]
-          shift: [0,-ky/2]
+          shift: [-3.25, -ky/2-1.25]
           rotate: -90
