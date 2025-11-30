@@ -196,68 +196,83 @@ pcbs:
         adjust:
           rotate: 90
       mx_hotswap_main:
-        what: mx
+        what: ceoloide/switch_mx
         where: /^matrix_(?!(?:C7_R1))/
         params:
           from: "{{colrow}}"
           to: "{{column_net}}"
-          keycaps: true
-          hotswap: true
+          include_keycap: true
+          include_corner_marks: true
+          hotswap: true 
       # Rotate switch socket so it does't conflict with controller    
       mx_hotswap_conflict:
-        what: mx
+        what: ceoloide/switch_mx
         where: /^matrix_(?:C7_R1)/
         params:
           from: "{{colrow}}"
           to: "{{column_net}}"
-          keycaps: true
+          include_keycap: true
+          include_corner_marks: true
           hotswap: true 
         adjust:
             rotate: 90     
       diode:
-        what: diode
-        where: /^matrix_(?!(?:C7_R1|C9_R1))/
+        what: ceoloide/diode_tht_sod123
+        where: /^matrix_(?!(?:C7_R1|C9_R1|C8_R3))/
         adjust:
           rotate: 0
           shift: [ 0, -5 ]
         params:
+          side: B
           from: "{{colrow}}"
           to: "{{row_net}}"
-      # Rotate diode so it does't conflict with controller
+      # Move diodes so it does't conflict with controller
       diode_conflict1:
-        what: diode
+        what: ceoloide/diode_tht_sod123
         where: /^matrix_(?:C7_R1)/
         adjust:
           rotate: 180
           shift: [3, 10]
         params:
+          side: B
           from: "{{colrow}}"
           to: "{{row_net}}"
       diode_conflict2:
-        what: diode
+        what: ceoloide/diode_tht_sod123
         where: /^matrix_(?:C9_R1)/
         adjust:
           rotate: 0
           shift: [0, -9]
         params:
+          side: B
           from: "{{colrow}}"
-          to: "{{row_net}}"    
-
-      nicenano:
-        what: nice_nano
+          to: "{{row_net}}"  
+      # Move diode that conflicts with JST connector      
+      diode_conflict3:
+        what: ceoloide/diode_tht_sod123
+        where: /^matrix_(?:C8_R3)/
+        adjust:
+          rotate: -90
+          shift: [-5, -5]
         params:
-          orientation: up
+          side: B
+          from: "{{colrow}}"
+          to: "{{row_net}}"      
+
+      mcu:
+        what: ceoloide/mcu_supermini_nrf52840
+        params:
+          side: B
+          include_extra_pins: true
         where:
           ref: matrix_C9_R1
           shift: [2, 2]
-          rotate: 0
-      jstph:
-        what: jstph
-        where:
-          ref: matrix_C6_R3
-          shift: [0,0]
           rotate: 90
+      jstph:
+        what: ceoloide/battery_connector_jst_ph_2
+        where:
+          ref.aggregate.parts: [matrix_C8_R2, matrix_C8_R3, matrix_C9_R2, matrix_C9_R3]
+          shift: [0,3]
+          rotate: -90
         params:
             side: B
-            pos: pos
-            neg: GND
