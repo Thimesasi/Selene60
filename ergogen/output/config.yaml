@@ -232,7 +232,7 @@ pcbs:
         where: /^matrix_(?:C7_R1)/
         adjust:
           rotate: 180
-          shift: [3, 10]
+          shift: [5, -8]
         params:
           side: B
           from: "{{colrow}}"
@@ -284,7 +284,7 @@ pcbs:
         adjust:
           shift: [kx-2,0]
           rotate: 0
-      reser:
+      reset:
         what: ceoloide/reset_switch_smd_side
         where: matrix_C15_R2
         params:
