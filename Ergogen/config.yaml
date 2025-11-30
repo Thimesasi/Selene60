@@ -79,55 +79,31 @@ points:
         R4:
         R5:
 outlines:
-  stab_hole:
-    big:
-      what: circle
-      radius: 4/2
-      adjust:
-        shift: [0,-8.24]
-    small:
-      what: circle
-      radius: 3.05/2
-      operation: add
-      adjust:
-        shift: [0, 7]
-  2u_stab_hole:
-    left:
-      what: outline
-      name: stab_hole
-      adjust:
-        shift: [-23.8/2,0] 
-    right:
-      what: outline
-      name: stab_hole
-      adjust:
-        shift: [23.8/2,0]  
-      operation: add   
   2u_stabilizer:
-    backspaceTop_L:
+    backspace_L:
       what: rectangle
       where: matrix_C15_R4
       size: [stabilizer_width, stabilizer_height]
       adjust:
         shift: [stabilizer_spacing_2u, -stabilizer_offset]
-    backspaceTop_R:
+    backspace_R:
       what: rectangle
       where: matrix_C15_R4
       size: [stabilizer_width, stabilizer_height]
       adjust:
         shift: [-stabilizer_spacing_2u, -stabilizer_offset]
-    backspaceBot_L:
+    space_L:
       what: rectangle
       where: matrix_C6_R1
       size: [stabilizer_width, stabilizer_height]
       adjust:
-        shift: [stabilizer_spacing_2u, stabilizer_offset]
-    backspaceBot_R:
+        shift: [stabilizer_spacing_2u, -stabilizer_offset]
+    space_R:
       what: rectangle
       where: matrix_C6_R1
       size: [stabilizer_width, stabilizer_height]
       adjust:
-        shift: [-stabilizer_spacing_2u, stabilizer_offset]
+        shift: [-stabilizer_spacing_2u, -stabilizer_offset]
     enter_T:
       what: rectangle
       where: matrix_C15_R2
@@ -191,18 +167,6 @@ outlines:
     main:
       what: outline
       name: border
-    stabs1:
-      what: outline
-      name: 2u_stab_hole
-      where: /^matrix_(?:C6_R1)/
-      operation: subtract  
-    stabs2:
-      what: outline
-      name: 2u_stab_hole
-      where: /^matrix_(?:C15_R2)/
-      operation: subtract
-      adjust:
-        rotate: -90  
   preview:
     main:
       what: outline
@@ -218,6 +182,19 @@ pcbs:
       main:
         outline: board
     footprints:
+      stab_space:
+        what: stab_2u
+        where: /^matrix_(?:C6_R1)/
+
+      stab_bspc:
+        what: stab_2u
+        where: /^matrix_(?:C15_R4)/
+        
+      stab_enter:
+        what: stab_2u
+        where: /^matrix_(?:C15_R2)/
+        adjust:
+          rotate: 90
       mx_hotswap_main:
         what: mx
         where: /^matrix_(?!(?:C7_R1))/
@@ -274,3 +251,13 @@ pcbs:
           ref: matrix_C9_R1
           shift: [2, 2]
           rotate: 0
+      jstph:
+        what: jstph
+        where:
+          ref: matrix_C6_R3
+          shift: [0,0]
+          rotate: 90
+        params:
+            side: B
+            pos: pos
+            neg: GND
