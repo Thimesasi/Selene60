@@ -220,7 +220,7 @@ pcbs:
         what: ceoloide/diode_tht_sod123
         where: /^matrix_(?!(?:C7_R1|C9_R1|C8_R3))/
         adjust:
-          rotate: 0
+          rotate: 180
           shift: [ 0, -5 ]
         params:
           side: B
@@ -241,7 +241,7 @@ pcbs:
         what: ceoloide/diode_tht_sod123
         where: /^matrix_(?:C9_R1)/
         adjust:
-          rotate: 0
+          rotate: 180
           shift: [0, -9]
         params:
           side: B
@@ -252,7 +252,7 @@ pcbs:
         what: ceoloide/diode_tht_sod123
         where: /^matrix_(?:C8_R3)/
         adjust:
-          rotate: -90
+          rotate: 90
           shift: [-5, -5]
         params:
           side: B
@@ -276,3 +276,21 @@ pcbs:
           rotate: -90
         params:
             side: B
+      power:
+        what: ceoloide/power_switch_smd_side
+        where: matrix_C15_R4
+        params:
+          side: B
+        adjust:
+          shift: [kx-2,0]
+          rotate: 0
+      reser:
+        what: ceoloide/reset_switch_smd_side
+        where: matrix_C15_R2
+        params:
+          side: B
+        adjust:
+          shift: [0,-kx+2]
+          rotate: 180
+    
+
