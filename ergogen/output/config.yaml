@@ -254,8 +254,8 @@ outlines:
       where: matrix_C8_R5
       operation: add
       adjust:
-        shift: [0, kx-4.5]
-      fillet: 0.5  
+        shift: [0, kx-5.5]
+      fillet: 0.2  
     gasketbot:
       what: outline
       name: top_gasket
@@ -264,14 +264,14 @@ outlines:
       adjust:
         rotate: 180
         shift: [0, -5kx+5.5]
-      fillet: 0.5  
+      fillet: 0.2  
     gasketsmall:
       what: outline
       name: top_small_gaskets
       where: matrix_C8_R5
       operation: add
       adjust:
-        shift: [0, kx-5.5]
+        shift: [0, kx-6.5]
       fillet: 0.5     
           
   preview:
@@ -400,4 +400,3 @@ pcbs:
           shift: [0,-kx+2]
           rotate: 180
     
-
