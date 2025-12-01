@@ -21,44 +21,72 @@ points:
       columns:
         C1:
           rows.R1.skip: true
+          key:
+            column_net: P1
         C2:
           rows.R1.shift: [0.5kx,0]
           rows.R2.shift: [-0.5kx,0]
+          key:
+            column_net: P0
         C3:
           rows.R1.shift: [0.5kx,0]
           rows.R2.shift: [-0.5kx,0]
+          key:
+            column_net: P2
         C4:
           rows.R1.shift: [0.5kx,0]
           rows.R2.shift: [-0.5kx,0]
+          key:
+            column_net: P3
         C5:
           rows.R1.skip: true
+          key:
+            column_net: P4
         C6:
           rows.R1.width: 2kx
+          key:
+            column_net: P5
         C7:
           rows.R1.shift: [0.5kx,0]
           rows.R2.shift: [-0.5kx,0]
+          key:
+            column_net: P6
         C8:
           rows.R1.skip: true
+          key:
+            column_net: P7
         C9:
           rows.R1.width: 1.75kx
           rows.R1.shift: [-0.125kx,0]
           rows.R2.shift: [0.125kx,0]
+          key:
+            column_net: P8
         C10:
           rows.R1.skip: true
+          key:
+            column_net: P9
         C11:
           rows.R1.width: 1.25kx
           rows.R1.shift: [-0.625kx,0]
           rows.R2.shift: [0.625kx,0]
+          key:
+            column_net: P10
         C12:
           rows.R1.shift: [-0.5kx,0]
           rows.R2.shift: [0.5kx,0]
+          key:
+            column_net: P16
         C13:
           rows.R1.shift: [-0.5kx,0]
           rows.R2.shift: [0.5kx,0]
+          key:
+            column_net: P14
         C14:
           rows.R1.shift: [-0.5kx,0]
           rows.R2.shift: [0.5kx,0]
           rows.R4.skip: true
+          key:
+            column_net: P15
         C15:
           #backspace
           rows.R1.skip: true
@@ -71,13 +99,20 @@ points:
           rows.R2.height: 2ky
           rows.R2.shift: [0, 0.5ky]
           rows.R3.shift: [0, -0.5ky]
+          key:
+            column_net: P18
 
       rows:
         R1:
+          row_net: P19
         R2:
+          row_net: P20
         R3:
+          row_net: P21
         R4:
+          row_net: P101
         R5:
+          row_net: P102
 outlines:
   2u_stabilizer:
     backspace_L:
@@ -199,8 +234,8 @@ pcbs:
         what: ceoloide/switch_mx
         where: /^matrix_(?!(?:C7_R1))/
         params:
-          from: "{{colrow}}"
-          to: "{{column_net}}"
+          from: "{{column_net}}"
+          to: "{{colrow}}"
           include_keycap: true
           include_corner_marks: true
           hotswap: true 
@@ -209,8 +244,8 @@ pcbs:
         what: ceoloide/switch_mx
         where: /^matrix_(?:C7_R1)/
         params:
-          from: "{{colrow}}"
-          to: "{{column_net}}"
+          from: "{{column_net}}"
+          to: "{{colrow}}"
           include_keycap: true
           include_corner_marks: true
           hotswap: true 
@@ -220,7 +255,7 @@ pcbs:
         what: ceoloide/diode_tht_sod123
         where: /^matrix_(?!(?:C7_R1|C9_R1|C8_R3))/
         adjust:
-          rotate: 180
+          rotate: 0
           shift: [ 0, -5 ]
         params:
           side: B
@@ -231,7 +266,7 @@ pcbs:
         what: ceoloide/diode_tht_sod123
         where: /^matrix_(?:C7_R1)/
         adjust:
-          rotate: 180
+          rotate: 0
           shift: [5, -8]
         params:
           side: B
@@ -241,7 +276,7 @@ pcbs:
         what: ceoloide/diode_tht_sod123
         where: /^matrix_(?:C9_R1)/
         adjust:
-          rotate: 180
+          rotate: 0
           shift: [0, -9]
         params:
           side: B
@@ -252,7 +287,7 @@ pcbs:
         what: ceoloide/diode_tht_sod123
         where: /^matrix_(?:C8_R3)/
         adjust:
-          rotate: 90
+          rotate: -90
           shift: [-5, -5]
         params:
           side: B
