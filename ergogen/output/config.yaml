@@ -154,12 +154,12 @@ outlines:
       what: outline
       name: one_gasket_small
       adjust: 
-        shift: [-gas_spc-61.976, 0]  
+        shift: [-100.501-25-7.5, 0]  
     sright:
       what: outline
       name: one_gasket_small
       adjust: 
-        shift: [gas_spc+61.976,0]           
+        shift: [100.501+25+7.5,0]           
   2u_stabilizer:
     backspace_L:
       what: rectangle
