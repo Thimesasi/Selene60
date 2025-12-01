@@ -129,6 +129,10 @@ outlines:
       operation: add
       adjust:
         shift: [0,-2]
+  one_gasket_small:
+    main:
+      what: rectangle
+      size: [10,7]      
   top_gasket:
     mid:
       what: outline
@@ -144,7 +148,18 @@ outlines:
       name: one_gasket
       operation: add
       adjust:
-        shift: [-gas_spc,0]    
+        shift: [-gas_spc,0]
+  top_small_gaskets:      
+    sleft:
+      what: outline
+      name: one_gasket_small
+      adjust: 
+        shift: [-gas_spc-51.976, 0]  
+    sright:
+      what: outline
+      name: one_gasket_small
+      adjust: 
+        shift: [gas_spc+51.976,0]           
   2u_stabilizer:
     backspace_L:
       what: rectangle
@@ -248,8 +263,16 @@ outlines:
       operation: add
       adjust:
         rotate: 180
-        shift: [0, -5kx+4.5]
-      fillet: 0.5    
+        shift: [0, -5kx+5.5]
+      fillet: 0.5  
+    gasketsmall:
+      what: outline
+      name: top_small_gaskets
+      where: matrix_C8_R5
+      operation: add
+      adjust:
+        shift: [0, kx-5.5]
+      fillet: 0.5     
           
   preview:
     main:
