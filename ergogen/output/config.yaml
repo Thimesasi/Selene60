@@ -12,6 +12,10 @@ units:
   stabilizer_height: 14
   stabilizer_offset: -1 # This means south stabs, use `orient` to rotate them for north facing scenarios
   stabilizer_spacing_2u: u / 2 + stabilizer_width / 2 + ((23.8 / 2) - (14 / 2) - (stabilizer_width / 2)) # The complex formula has two magic numbers. 14 is the size of a switch cutout for a plate. 23.8 is the distance between each stabilizer on a 2-2.75u stabilizer, as specified by Cherry
+#Gasket dimensions
+  gas_len: 45
+  gas_wid: 5
+  gas_spc: 69.476
 
 points:
   zones:
@@ -114,6 +118,33 @@ points:
         R5:
           row_net: P102
 outlines:
+  one_gasket:
+    main:
+      what: rectangle
+      size: [gas_len,gas_wid]
+      fillet: gas_wid/2 - 0.0001
+    connect:
+      what: rectangle
+      size: [5,5]
+      operation: add
+      adjust:
+        shift: [0,-2]
+  top_gasket:
+    mid:
+      what: outline
+      name: one_gasket
+    right:
+      what: outline
+      name: one_gasket
+      operation: add
+      adjust:
+        shift: [gas_spc,0]
+    left:
+      what: outline
+      name: one_gasket
+      operation: add
+      adjust:
+        shift: [-gas_spc,0]    
   2u_stabilizer:
     backspace_L:
       what: rectangle
@@ -201,7 +232,25 @@ outlines:
   board:
     main:
       what: outline
-      name: border
+      name: border  
+    gaskettop:
+      what: outline
+      name: top_gasket
+      where: matrix_C8_R5
+      operation: add
+      adjust:
+        shift: [0, kx-4.5]
+      fillet: 0.5  
+    gasketbot:
+      what: outline
+      name: top_gasket
+      where: matrix_C8_R5
+      operation: add
+      adjust:
+        rotate: 180
+        shift: [0, -5kx+4.5]
+      fillet: 0.5    
+          
   preview:
     main:
       what: outline
