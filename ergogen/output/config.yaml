@@ -397,15 +397,15 @@ pcbs:
         params:
           side: B
         adjust:
-          shift: [kx-2,0]
+          shift: [kx-2,02]
           rotate: 0
       reset:
         what: ceoloide/reset_switch_smd_side
-        where: matrix_C15_R2
+        where: matrix_C15_R4
         params:
           side: B
         adjust:
-          shift: [0,-kx+2]
-          rotate: 180
+          shift: [kx-2,-7]
+          rotate: -90
     
 
