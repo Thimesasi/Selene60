@@ -333,7 +333,7 @@ pcbs:
             rotate: 90     
       diode:
         what: ceoloide/diode_tht_sod123
-        where: /^matrix_(?!(?:C7_R1|C9_R1|C8_R3))/
+        where: /^matrix_(?!(?:C7_R1|C9_R1))/
         adjust:
           rotate: 90
           shift: [ 7, -4 ]
@@ -362,17 +362,6 @@ pcbs:
           side: B
           from: "{{colrow}}"
           to: "{{row_net}}"  
-      # Move diode that conflicts with JST connector      
-      diode_conflict3:
-        what: ceoloide/diode_tht_sod123
-        where: /^matrix_(?:C8_R3)/
-        adjust:
-          rotate: -90
-          shift: [-5, -5]
-        params:
-          side: B
-          from: "{{colrow}}"
-          to: "{{row_net}}"      
 
       mcu:
         what: ceoloide/mcu_supermini_nrf52840
@@ -381,13 +370,13 @@ pcbs:
           include_extra_pins: true
         where:
           ref: matrix_C9_R1
-          shift: [2, 2]
+          shift: [6, 2]
           rotate: 90
       jstph:
         what: ceoloide/battery_connector_jst_ph_2
         where:
-          ref.aggregate.parts: [matrix_C8_R2, matrix_C8_R3, matrix_C9_R2, matrix_C9_R3]
-          shift: [0,3]
+          ref.aggregate.parts: [matrix_C8_R5, matrix_C8_R4, matrix_C9_R4, matrix_C9_R5]
+          shift: [0,0]
           rotate: -90
         params:
             side: B
