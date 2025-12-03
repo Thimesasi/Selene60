@@ -3,19 +3,18 @@ units:
   kx: U
   ky: U
   # Padding Variables
-  px: kx + 2
-  py: ky + 2
-
+  px: kx + 0.25
+  py: ky + 0.25
 # Stabalizer cutout
-  u: U # Ensure we are using 19.05!
+   # Ensure we are using 19.05!
   stabilizer_width: 7
   stabilizer_height: 14
   stabilizer_offset: -1 # This means south stabs, use `orient` to rotate them for north facing scenarios
-  stabilizer_spacing_2u: u / 2 + stabilizer_width / 2 + ((23.8 / 2) - (14 / 2) - (stabilizer_width / 2)) # The complex formula has two magic numbers. 14 is the size of a switch cutout for a plate. 23.8 is the distance between each stabilizer on a 2-2.75u stabilizer, as specified by Cherry
+  stabilizer_spacing_2u: kx / 2 + stabilizer_width / 2 + ((23.8 / 2) - (14 / 2) - (stabilizer_width / 2)) # The complex formula has two magic numbers. 14 is the size of a switch cutout for a plate. 23.8 is the distance between each stabilizer on a 2-2.75u stabilizer, as specified by Cherry
 #Gasket dimensions
   gas_len: 45
   gas_wid: 5
-  gas_spc: 69.476
+  gas_spc: 69.476-1.75
 
 points:
   zones:
