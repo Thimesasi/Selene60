@@ -312,7 +312,7 @@ pcbs:
           rotate: 90
       mx_hotswap_main:
         what: ceoloide/switch_mx
-        where: /^matrix_(?!(?:C7_R1))/
+        where: /^matrix_(?!(?:C11_R1))/
         params:
           from: "{{column_net}}"
           to: "{{colrow}}"
@@ -322,7 +322,7 @@ pcbs:
       # Rotate switch socket so it does't conflict with controller    
       mx_hotswap_conflict:
         what: ceoloide/switch_mx
-        where: /^matrix_(?:C7_R1)/
+        where: /^matrix_(?:C11_R1)/
         params:
           from: "{{column_net}}"
           to: "{{colrow}}"
@@ -330,13 +330,13 @@ pcbs:
           include_corner_marks: true
           hotswap: true 
         adjust:
-            rotate: 90     
+            rotate: -90     
       diode:
         what: ceoloide/diode_tht_sod123
-        where: /^matrix_(?!(?:C7_R1|C9_R1))/
+        where: /^matrix_(?!(?:C7_R5|C11_R1))/
         adjust:
           rotate: 90
-          shift: [ 7, -4 ]
+          shift: [ 8, -2 ]
         params:
           side: B
           from: "{{colrow}}"
@@ -344,24 +344,24 @@ pcbs:
       # Move diodes so it does't conflict with controller
       diode_conflict1:
         what: ceoloide/diode_tht_sod123
-        where: /^matrix_(?:C7_R1)/
+        where: /^matrix_(?:C11_R1)/
         adjust:
-          rotate: 0
-          shift: [5, -8]
+          rotate: 90
+          shift: [ -5, -2 ]
         params:
           side: B
           from: "{{colrow}}"
-          to: "{{row_net}}"
+          to: "{{row_net}}" 
       diode_conflict2:
         what: ceoloide/diode_tht_sod123
-        where: /^matrix_(?:C9_R1)/
+        where: /^matrix_(?:C7_R5)/
         adjust:
-          rotate: 0
-          shift: [0, -9]
+          rotate: 90
+          shift: [ -8, -2 ]
         params:
           side: B
           from: "{{colrow}}"
-          to: "{{row_net}}"  
+          to: "{{row_net}}"     
 
       mcu:
         what: ceoloide/mcu_supermini_nrf52840
@@ -372,14 +372,22 @@ pcbs:
           ref: matrix_C9_R1
           shift: [6, 2]
           rotate: 90
-      jstph:
+      jstphR:
         what: ceoloide/battery_connector_jst_ph_2
         where:
           ref.aggregate.parts: [matrix_C8_R5, matrix_C8_R4, matrix_C9_R4, matrix_C9_R5]
-          shift: [0,0]
-          rotate: -90
+          shift: [0,2]
+          rotate: 90
         params:
             side: B
+      jstphL:
+        what: ceoloide/battery_connector_jst_ph_2
+        where:
+          ref.aggregate.parts: [matrix_C7_R5, matrix_C7_R4, matrix_C8_R4, matrix_C8_R5]
+          shift: [0,2]
+          rotate: -90
+        params:
+            side: B      
       power:
         what: ceoloide/power_switch_smd_side
         where: matrix_C15_R4
